@@ -1,7 +1,8 @@
 package com.example.project.Airport;
+
 import java.util.ArrayList;
 
-public class Airport  {
+public class Airport {
     /** A list of the flights into and out of this airport
      *  Guaranteed not to be null and to contain only non-null entries
      */
@@ -20,15 +21,33 @@ public class Airport  {
      */
     public double getTotalRevenue() {
         /* to be implemented in part (a) */
-        return 0.0;
+        double total=0.0;
+        for (Flight fl : allFlights) {
+            if (fl.getNumPassengers()<fl.getCapacity()) {
+            total+=fl.getNumPassengers()*fl.getPrice();
+            } else {
+                total+=fl.getCapacity()*fl.getPrice();
+            }
+        }
+        return total;
     }
+
 
     /** Updates the list of flights by removing certain flights and
      *  returns the total number of passengers whose flights were removed,
      *  as described in part (b)
      */
     public int updateFlights() {
-        /* to be implemented in part (b) */
-        return 0;
+      int removedPassengers = 0;
+      ArrayList<Flight> remainingFlights = new ArrayList<>();
+        for (Flight flight : allFlights) {
+         if (flight.getNumPassengers() > 20) {
+               remainingFlights.add(flight);
+          } else {
+            removedPassengers += flight.getNumPassengers();
+            }
+        }
+       allFlights = remainingFlights;
+        return removedPassengers;
     }
 }
